@@ -16,9 +16,20 @@ dependencies = [
     "motor (>=3.6.1,<4.0.0)",
     "pytest (>=8.3.4,<9.0.0)",
     "pytest-asyncio (>=0.25.2,<0.26.0)",
-    "pre-commit (>=4.1.0,<5.0.0)"
+    "pre-commit (>=4.1.0,<5.0.0)",
+    "httpx (>=0.28.1,<0.29.0)"
 ]
 
+[tool.pytest.ini_options]
+asyncio_default_fixture_loop_scope = "function"
+asyncio_mode = "auto"
+addopts = [
+  "--strict-config",
+  "--strict-markers",
+  "--ignore=docs_src",
+]
+xfail_strict = true
+junit_family = "xunit2"
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]

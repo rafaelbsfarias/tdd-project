@@ -1,5 +1,3 @@
-version: '3'
-
 services:
   db:
     image: 'bitnami/mongodb:latest'
@@ -7,6 +5,46 @@ services:
       - '27017:27017'
     restart: on-failure
     environment:
-      - MONGODB_REPLICA_SET_MODE=primary
       - MONGODB_ADVERTISED_HOSTNAME=localhost
       - ALLOW_EMPTY_PASSWORD=yes
+
+
+#services:
+#  db:
+#    image: 'bitnami/mongodb:latest'
+#    ports:
+#      - '27017:27017'
+#    restart: on-failure
+#    environment:
+#      - MONGODB_REPLICA_SET_MODE=primary
+#      - MONGODB_ADVERTISED_HOSTNAME=db
+#      - ALLOW_EMPTY_PASSWORD=yes
+#      - MONGODB_SYSTEM_LOG_VERBOSITY=0
+#    networks:
+#      - fastapi_mongo-network
+#    healthcheck:
+#      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+#      interval: 10s
+#      timeout: 5s
+#      retries: 5
+#
+#  mongo-express:
+#    image: 'mongo-express:latest'
+#    ports:
+#      - '8081:8081'
+#    environment:
+#      - ME_CONFIG_MONGODB_SERVER=db
+#      - ME_CONFIG_MONGODB_ENABLE_ADMIN=true
+#      - ME_CONFIG_BASICAUTH_USERNAME=admin
+#      - ME_CONFIG_BASICAUTH_PASSWORD=admin
+#    depends_on:
+#      db:
+#        condition: service_healthy
+#    networks:
+#      - fastapi_mongo-network
+#networks:
+#  fastapi_mongo-network:
+#    driver: bridge
+#
+#volumes:
+#  mongodb_data:
